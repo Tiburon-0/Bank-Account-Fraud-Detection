@@ -1,0 +1,339 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Sleek Dark-Mode Theme — Bank Account Fraud Analytics Dashboard
+   ───────────────────────────────────────────────────────────────────────────── */
+
+
+/* ----------------------------- Design tokens -----------------------------*/
+:root {
+    --bg-back:          #090d16;  /* deepest canvas background                 */
+    --bg-card:          #111827;  /* card/container surface                    */
+    --bg-input:         #1a2235;  /* input/dropdown background                 */
+    --border-subtle:    #1f2937;  /* fine dividing lines                       */
+    --border-focus:     #6366f1;  /* violet ring on focused inputs             */
+    --text-pure:        #f9fafb;  /* primary text — high contrast              */
+    --text-dim:         #9ca3af;  /* secondary labels / descriptions           */
+    --text-placeholder: #4b5563;  /* placeholder text inside inputs            */
+    --accent-glow:      #6366f1;  /* electric violet — primary accent          */
+    --accent-hover:     #818cf8;  /* lighter violet on hover states            */
+    --alert-crimson:    #f87171;  /* fraud / alert highlight                   */
+    --neon-green:       #34d399;  /* legitimate / legit highlight               */
+    --transition:       0.18s ease;
+}
+
+
+/* ----------------------------- Reset & base -----------------------------*/
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-back);
+    color: var(--text-pure);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 24px;
+}
+
+
+/*  ------------------------------ Scrollbar ------------------------------*/
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: var(--bg-back); }
+::-webkit-scrollbar-thumb        { background: var(--border-subtle); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--accent-glow); }
+
+
+/* ----------------------------------- Layout containers -----------------------------------*/
+.dark-container {
+    max-width: 1400px;
+    margin: 0 auto;  /* centers the container horizontally in the browser window */
+}
+
+.dark-header {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+}
+
+/* ------------------Headers------------------------------------------*/
+.dark-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-pure);
+    text-align: center;
+}
+
+.dark-header h2 {
+    text-align: center;
+}
+
+/* ---------------------------------------------------------- */
+.dark-header p {
+    margin: 6px 0 0 0;
+    color: var(--text-dim);
+    font-size: 13px;
+}
+
+.dark-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    transition: border-color var(--transition);  /* ----------------------------- */
+}
+
+/*----------------------------------------------------------*/
+.dark-card:hover {
+    border-color: #2d3748;
+}
+
+.layout-split {
+    display: flex;      /* makes children sit side by side                     */
+    gap: 20px;          /* space between the children                          */
+    flex-wrap: wrap;    /* children stack vertically if the screen is too narrow */
+}
+
+/*----------------------------------------------------------*/
+.layout-split > div {
+    flex: 1;
+    min-width: 300px;
+}
+
+
+/* ----------------------------- Labels above controls -----------------------------*/
+label {
+    display: block;          /* forces the label onto its own line              */
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;  /* makes labels look like UI section titles    */
+    color: var(--text-dim);
+    margin-bottom: 8px;      /* space between the label and the dropdown below */
+}
+
+
+/* ----------------------------- Dash Dropdown internals -----------------------------*/
+
+/* -------- Control box (the visible input area) ------- */
+.Select-control,
+[class$="-control"] {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 8px !important;
+    color: var(--text-pure) !important;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+}
+
+.Select-control:hover,
+[class$="-control"]:hover {
+    border-color: var(--accent-glow) !important;
+}
+
+.Select.is-open > .Select-control {
+    border-color: var(--accent-glow) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* --- Selected value and placeholder text --- */
+.Select-placeholder,
+.Select-value-label,
+[class$="-placeholder"],
+[class$="-singleValue"] {
+    color: var(--text-pure) !important;
+    font-size: 13px !important;
+}
+
+/* --------- Search input inside the dropdown --------- */
+.Select-input > input,
+[class$="-Input"] input,
+[class$="-input"] input {
+    color: var(--text-pure) !important;
+    font-size: 13px !important;
+}
+
+/* --------- Caret arrow (Dash < 4.x only) --------- */
+.Select-arrow {
+    border-color: var(--text-dim) transparent transparent !important;
+}
+.Select.is-open .Select-arrow {
+    border-color: transparent transparent var(--accent-glow) !important;
+}
+
+/* --------- Floating options panel --------- */
+.Select-menu-outer,
+[class$="-menu"],
+[class$="-MenuList"] {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--accent-glow) !important;
+    border-radius: 0 0 8px 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+    z-index: 999 !important;
+}
+
+/* --------- Individual option rows --------- */
+.Select-option,
+[class$="-option"] {
+    background-color: var(--bg-input) !important;
+    color: var(--text-dim) !important;
+    font-size: 13px !important;
+    padding: 9px 14px !important;
+    cursor: pointer;
+}
+
+.Select-option:hover,
+.Select-option.is-focused,
+[class$="-option"]:hover {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+    color: var(--text-pure) !important;
+}
+
+.Select-option.is-selected {
+    background-color: rgba(99, 102, 241, 0.25) !important;
+    color: var(--accent-hover) !important;
+    font-weight: 600 !important;
+}
+
+.Select-noop {
+    color: var(--text-placeholder) !important;
+}
+
+
+/* --------- Plotly graph containers --------- */
+.js-plotly-plot,
+.dash-graph,
+.plot-container {
+    background-color: transparent !important;
+}
+
+/*---------------------------------------------*/
+.js-plotly-plot .plotly .bg {
+    fill: var(--bg-card) !important;
+}
+
+
+/* --------- Radio buttons (dcc.RadioItems) ---------*/
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+/*--------------------------------------------------------- */
+input[type="radio"] {
+    accent-color: var(--accent-glow);
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------- */
+label:has(input[type="radio"]) {
+    color: var(--text-dim) !important;
+    font-size: 13px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-weight: 400 !important;
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+label:has(input[type="radio"]:checked) {
+    color: var(--accent-hover) !important;
+    font-weight: 600 !important;
+}
+
+
+/* ---------------- Slider (dcc.Slider / dcc.RangeSlider) ----------------*/
+.rc-slider-track          { background-color: var(--accent-glow) !important; }
+.rc-slider-handle         { border-color: var(--accent-glow) !important; background: var(--bg-input) !important; }
+.rc-slider-handle:hover   { border-color: var(--accent-hover) !important; }
+.rc-slider-handle:active  { box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3) !important; }
+.rc-slider-rail           { background-color: var(--border-subtle) !important; }
+.rc-slider-mark-text      { color: var(--text-dim) !important; font-size: 11px !important; }
+
+
+/* ---------------- Dash DataTable ----------------*/
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+    background-color: var(--bg-input) !important;
+    color: var(--text-dim) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
+    background-color: var(--bg-card) !important;
+    color: var(--text-pure) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    font-size: 13px !important;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner tr:hover td {
+    background-color: rgba(99, 102, 241, 0.08) !important;
+}
+
+
+/* ---------------- Metric / KPI badge ----------------*/
+.kpi-badge {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    transition: border-color var(--transition);
+}
+
+.kpi-badge:hover    { border-color: var(--accent-glow); }
+.kpi-badge p        { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+.kpi-badge h2       { margin: 6px 0 0 0; font-size: 28px; font-weight: 700; color: var(--text-pure); }
+.kpi-badge.fraud    { border-color: var(--alert-crimson); }
+.kpi-badge.fraud h2 { color: var(--alert-crimson); }
+.kpi-badge.legit     { border-color: var(--neon-green); }
+.kpi-badge.legit h2  { color: var(--neon-green); }
+
+
+/* ---------------- Markdown (dcc.Markdown) ----------------*/
+.dash-markdown h1,
+.dash-markdown h2,
+.dash-markdown h3 {
+    color: var(--text-pure);
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.dash-markdown p       { color: var(--text-dim); }
+.dash-markdown em      { color: var(--accent-hover); font-style: italic; }
+.dark-container .dark-header a,
+.dark-container .dark-header a:link,
+.dark-container .dark-header a:visited,
+.dark-container .dark-stats a,
+.dark-container .dark-stats a:link,
+.dark-container .dark-stats a:visited     { color: #818cf8 !important; font-weight: 600 !important; text-decoration: underline !important; }
+.dark-container .dark-header a:hover,
+.dark-container .dark-header a:active,
+.dark-container .dark-header a:focus,
+.dark-container .dark-stats a:hover,
+.dark-container .dark-stats a:active,
+.dark-container .dark-stats a:focus       { color: #f9fafb !important; text-decoration: underline !important; }
+
+.dark-container .dash-markdown a,
+.dark-container .dash-markdown a:link,
+.dark-container .dash-markdown a:visited  { color: #818cf8 !important; font-weight: 600 !important; text-decoration: underline !important; }
+.dark-container .dash-markdown a:hover,
+.dark-container .dash-markdown a:active,
+.dark-container .dash-markdown a:focus    { color: #f9fafb !important; text-decoration: underline !important; }
+
+
+/* ---------------- Utility classes ----------------*/
+.text-fraud  { color: var(--alert-crimson) !important; }
+.text-legit   { color: var(--neon-green) !important; }
+.text-accent { color: var(--accent-glow) !important; }
+.text-dim    { color: var(--text-dim) !important; }
+.divider     { border: none; border-top: 1px solid var(--border-subtle); margin: 20px 0; }
