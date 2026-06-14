@@ -269,7 +269,7 @@ fraud continues to be a primary avenue through which criminals and organizations
                       share the same origin. Certain features serve as stronger indicators when composing the
                       applicants' risk profiles. Thus, the violin plots below convey this diversity through analysis
                       of this dataset's categorical distribution. Each risk group and its associated radiobutton, `Velocity`,
-                      `Device_Session`, and `Identity_Contact`, encompasses various subsects of features, with a devoted violin
+                      `Device_Session`, and `Identity_Contact`, encompasses various subsets of features, with a devoted violin
                       plot for each feature.'''),
 
         html.Div([
@@ -303,9 +303,8 @@ fraud continues to be a primary avenue through which criminals and organizations
             # segue into section 3: bivariate risk analysis
             dcc.Markdown('''Analysis of a single feature by itself cannot accurately distinguish a fraudulent case from a legitimate case.
                          However, by assessing the dynamic relationships between multiple features, investigators and scholars alike can gain
-                          insight into each column feature's partial dependence, (i.e., each signal indicator's marginal effect on the machine-learning
-                          model's ability to classify an application as either `fraudulent` or `legitimate`). Users may explore the partial
-                          dependence of each indicator, selecting for specific `x-variables` and `y-variables`, as well as `sample sizes`, via the dropdowns
+                          insight into how fraud risk fluctuates across the feature space. Users may explore the relationships between feature
+                          pairs, selecting for specific `x-variables` and `y-variables`, as well as `sample sizes`, via the dropdowns
                           and sample slider above the scatter plot.'''),
 
             html.Div([  # Risk Matrix Panel
